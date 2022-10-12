@@ -33,29 +33,45 @@ const initial = {
       isDone: false,
     },
   ],
+  todo: {
+    id: 0, // id는 모두 고유값이어야 합니다.
+    title: "",
+    body: "",
+    isDone: false,
+  }
 };
 
 const todos = (state = initial, action) => {
   switch (action.type) {
     case ADD_TEXT:
-      return { todos: [action.payload, ...state.todos] };
+      return {
+        ...state,
+        todos: [action.payload, ...state.todos]
+      };
     case DELETE_TEXT:
       return {
+        ...state,
         todos: state.todos.filter((item) => {
           return item.id !== action.payload;
         }),
       };
     case CHANGE_DONE:
       return {
+        ...state,
         todos: state.todos.map((item) => {
           if (item.id === action.payload) {
             return { ...item, isDone: !item.isDone };
+          } else {
+            return item
           }
         }),
       };
     case GET_TODO_BYID:
       return {
-        todos: state.todos.find((item) => item.id === Number(action.payload)),
+        ...state,
+        todo: state.todos.find((item) => {
+          return item.id === Number(action.payload)
+        })
       };
 
     default:
