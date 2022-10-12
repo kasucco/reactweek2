@@ -1,5 +1,4 @@
 import { useNavigate } from "react-router-dom";
-import styled from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { CardBox } from "../shared/styled/common";
@@ -9,28 +8,20 @@ import { useEffect } from "react";
 const Detail = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const param = useParams();
-  // console.log(param);
-  // console.log(dispatch(getTodoByid(param.id)).id);
-  // const globalTodos = useSelector((state) => state.todos.todos);
-  // const [currTodo] = globalTodos.filter((item) => item.id === Number(param.id));
+  const { id } = useParams();
 
-  // console.log(globalTodos);
-  // console.log(currTodo);
-  const todo = () => dispatch(getTodoByid(param.id));
-
+  const todo = useSelector((state) => state.todos.todo);
+  console.log(todo);
   useEffect(() => {
-    todo();
+    dispatch(getTodoByid(id));
   }, []);
-  const todolist = useSelector((state) => state.todos.todos);
-  console.log(todolist);
+  console.log(todo);
+
   return (
     <CardBox>
-      {/* <div>{currTodo.id}</div>
-      <div>{currTodo.title}</div>
-      <div>{currTodo.body}</div> */}
-      <div>{todolist.body}</div>
-
+      <div>{todo.id}</div>
+      <div>{todo.title}</div>
+      <div>{todo.body}</div>
       <button onClick={() => navigate("/")}>홈으로</button>
     </CardBox>
   );
