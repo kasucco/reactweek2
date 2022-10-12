@@ -18,17 +18,18 @@ const Detail = () => {
   // console.log(globalTodos);
   // console.log(currTodo);
   const todo = () => dispatch(getTodoByid(param.id));
-  console.log(todo);
 
   useEffect(() => {
     todo();
   }, []);
+  const todolist = useSelector((state) => state.todos.todos);
+  console.log(todolist);
   return (
     <CardBox>
       {/* <div>{currTodo.id}</div>
       <div>{currTodo.title}</div>
       <div>{currTodo.body}</div> */}
-      <div>{todo.body}</div>
+      <div>{todolist.body}</div>
 
       <button onClick={() => navigate("/")}>홈으로</button>
     </CardBox>
