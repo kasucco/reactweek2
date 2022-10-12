@@ -1,18 +1,9 @@
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  addtext,
-  changedone,
-  deletetext,
-  makedetail,
-} from "../redux/modules/todos";
+import { addtext, changedone, deletetext } from "../redux/modules/todos";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
-
-const CARDBOX = styled.div`
-  border: 1px solid green;
-  width: 200px;
-`;
+import { CardBox } from "../shared/styled/common";
 
 const Home = () => {
   const navigate = useNavigate();
@@ -38,9 +29,6 @@ const Home = () => {
   const onChangeHandler = (todoId) => {
     dispatch(changedone(todoId));
   };
-  //   const onMakeHandler = (todoId) => {
-  //     dispatch(makedetail(todoId))
-  //   }
 
   console.log(globalTodos);
   return (
@@ -66,10 +54,10 @@ const Home = () => {
         {globalTodos.map((item) => {
           if (item.isDone === false)
             return (
-              <CARDBOX key={item.id}>
+              <CardBox key={item.id}>
                 <div
                   onClick={() => {
-                    navigate("/detail");
+                    navigate(`/detail/${item.id}`);
                   }}
                 >
                   상세보기
@@ -81,7 +69,7 @@ const Home = () => {
                 <button onClick={() => onChangeHandler(item.id)}>
                   {item.isDone === false ? "완료하기" : "취소하기"}
                 </button>
-              </CARDBOX>
+              </CardBox>
             );
         })}
       </div>
@@ -90,7 +78,14 @@ const Home = () => {
         {globalTodos.map((item) => {
           if (item.isDone === true)
             return (
-              <CARDBOX key={item.id}>
+              <CardBox key={item.id}>
+                <div
+                  onClick={() => {
+                    navigate(`/detail/${item.id}`);
+                  }}
+                >
+                  상세보기
+                </div>
                 <div>{item.id}</div>
                 <div>{item.title}</div>
                 <div>{item.body}</div>
@@ -98,7 +93,7 @@ const Home = () => {
                 <button onClick={() => onChangeHandler(item.id)}>
                   {item.isDone === false ? "완료하기" : "취소하기"}
                 </button>
-              </CARDBOX>
+              </CardBox>
             );
         })}
       </div>

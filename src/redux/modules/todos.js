@@ -1,7 +1,7 @@
 const ADD_TEXT = "ADD_TEXT";
 const DELETE_TEXT = "DELETE_TEXT";
 const CHANGE_DONE = "CHANGE_DONE";
-const MAKE_DETAIL = "MAKE_DETAIL";
+const GET_TODO_BYID = "GET_TODO_BYID";
 
 export const addtext = (payload) => {
   return { type: ADD_TEXT, payload: payload };
@@ -15,12 +15,24 @@ export const changedone = (payload) => {
   return { type: CHANGE_DONE, payload: payload };
 };
 
-export const makedetail = (payload) => {
-  return { type: MAKE_DETAIL, payload: payload };
+export const getTodoByid = (payload) => {
+  return { type: GET_TODO_BYID, payload };
 };
-
 const initial = {
-  todos: [],
+  todos: [
+    {
+      id: 1, // id는 모두 고유값이어야 합니다.
+      title: "리액트 강의보기",
+      body: "챕터 1부터 챕터 12까지 학습",
+      isDone: false,
+    },
+    {
+      id: 2, // id는 모두 고유값이어야 합니다.
+      title: "점심 먹기",
+      body: "점심 뭐먹지..?",
+      isDone: false,
+    },
+  ],
 };
 
 const todos = (state = initial, action) => {
@@ -40,6 +52,10 @@ const todos = (state = initial, action) => {
             return { ...item, isDone: !item.isDone };
           }
         }),
+      };
+    case GET_TODO_BYID:
+      return {
+        todos: state.todos.find((item) => item.id === Number(action.payload)),
       };
 
     default:
