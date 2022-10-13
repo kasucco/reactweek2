@@ -16,25 +16,27 @@ export const LayoutBox = styled.div`
 export const StContainer = styled.div`
   border: 2px solid #eee;
   width: 100%;
-  height: 100vh;
+  height: 70vh;
   display: flex;
   align-items: center;
   justify-content: center;
 `;
 export const StDialog = styled.div`
+  background-color: gainsboro;
   width: 600px;
   height: 400px;
   border: 1px solid #eee;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: center;
 `;
 export const StDialogHeader = styled.div`
   display: flex;
   height: 80px;
   justify-content: space-between;
-  padding: 0 24px;
+  padding: 0 12px;
   align-items: center;
+  margin-bottom: 20px;
 `;
 export const StButton = styled.button`
   border: 1px solid ${({ borderColor }) => borderColor};
